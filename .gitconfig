@@ -1,0 +1,26 @@
+[user]
+    name = Dmytro Ianko
+    email = dmytro.ianko@globallogic.com
+[push]
+    default = simple
+[alias]
+    co = checkout
+    ci = commit
+    st = status
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+    la = log --graph --all --decorate
+    lar = log --graph --all --decorate --reflog
+    untrack = rm --cache --
+    br = branch
+    undo = reset HEAD~1 --mixed
+    amend = commit -a --amend
+    cp = cherry-pick
+    sdiff = !git diff && git submodule foreach 'git diff'
+#   grep = "!f() { git grep ${1} cpss; }; f" # not works with alias name equal to command name, just for positional params reference
+    sgrep = grep --recurse-submodules
+    find-merge = "!sh -c 'commit=$0 && branch=${1:-HEAD} && (git rev-list $commit..$branch --ancestry-path | cat -n; git rev-list $commit..$branch --first-parent | cat -n) | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2'"
+    show-merge = "!sh -c 'merge=$(git find-merge $0 $1) && [ -n \"$merge\" ] && git show $merge'"
+[credential]
+    helper = cache --timeout=3600
+[color]
+    ui = auto
